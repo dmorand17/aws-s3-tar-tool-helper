@@ -1,5 +1,6 @@
 import argparse
 import csv
+from pathlib import Path
 
 import boto3
 
@@ -34,14 +35,20 @@ def create_s3_manifest(bucket_name, output_file="s3_manifest.csv"):
                     )
 
         if manifest_data:
-            with open(output_file, "w", newline="") as csvfile:
+            # Create manifests directory if it doesn't exist
+            manifests_dir = Path("manifests")
+            manifests_dir.mkdir(exist_ok=True)
+
+            # Write to manifests directory
+            manifest_path = manifests_dir / output_file
+            with open(manifest_path, "w", newline="") as csvfile:
                 fieldnames = ["Bucket", "Key", "Content-Length"]
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
-                writer.writeheader()
+                # writer.writeheader()
                 for row in manifest_data:
                     writer.writerow(row)
-            print(f"Manifest created successfully: {output_file}")
+            print(f"Manifest created successfully: {manifest_path}")
         elif not found_objects:  # If no objects were found across all pages
             print(
                 f"No objects found in bucket: {bucket_name}. No manifest file was created."
@@ -75,8 +82,13 @@ def parse_args():
     return parser.parse_args()
 
 
-if __name__ == "__main__":
+def main():
     args = parse_args()
     bucket_arg = args.bucket_name
     output_file_arg = args.output_file
     create_s3_manifest(bucket_arg, output_file_arg)
+
+
+if __name__ == "__main__":
+    main()
+    main()

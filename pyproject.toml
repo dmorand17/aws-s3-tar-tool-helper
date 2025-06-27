@@ -1,7 +1,7 @@
 [project]
-name = "aws-s3tar"
+name = "aws-s3-tar-helper"
 version = "0.1.0"
-description = "Add your description here"
+description = "Helper project for working with amazon-s3-tar-tool"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -15,5 +15,12 @@ dev = [
 ]
 
 [project.scripts]
-create-s3_manifests = "src.s3_tar_helper.create_manifests:main"
-run-s3tar = "src.s3_tar_helper.run_s3tar:main"
+create-manifest = "s3_tar_helper.create_s3_manifest:main"
+run-s3tar = "s3_tar_helper.run_s3tar:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/s3_tar_helper"]

@@ -54,12 +54,25 @@ The [amazon-s3-tar-tool](https://github.com/awslabs/amazon-s3-tar-tool) is a pow
 
 3. **Install amazon-s3-tar-tool**:
 
+   The easiest way is to use the provided helper script:
+
    ```bash
-   # Download the latest release
-   curl -L https://github.com/awslabs/amazon-s3-tar-tool/releases/latest/download/s3tar -o s3tar
-   chmod +x s3tar
-   sudo mv s3tar /usr/local/bin/
+   bash download-s3tar.sh
    ```
+
+   This will automatically download the latest compatible release and install it to `$HOME/.local/bin`.
+
+   **Manual method:**
+
+   ```bash
+   # Download the latest release (example for Linux amd64)
+   curl -L https://github.com/awslabs/amazon-s3-tar-tool/releases/latest/download/s3tar-linux-amd64.zip -o s3tar.zip
+   unzip s3tar.zip
+   chmod +x s3tar
+   mv s3tar $HOME/.local/bin
+   ```
+
+   Make sure `$HOME/.local/bin` is in your `PATH`.
 
 ## Usage
 
@@ -185,9 +198,10 @@ Install the amazon-s3-tar-tool for tar operations:
 
 ```bash
 # Download and install amazon-s3-tar-tool
-curl -L https://github.com/awslabs/amazon-s3-tar-tool/releases/latest/download/s3tar -o s3tar
+curl -L https://github.com/awslabs/amazon-s3-tar-tool/releases/download/v1.0.27/s3tar-linux-arm64.zip -o s3tar.zip
+unzip s3tar.zip
 chmod +x s3tar
-sudo mv s3tar /usr/local/bin/
+sudo mv s3tar $HOME/.local/bin
 ```
 
 **Note**: The amazon-s3-tar-tool requires specific AWS permissions. See the [official documentation](https://github.com/awslabs/amazon-s3-tar-tool) for detailed IAM policy requirements.
@@ -389,4 +403,4 @@ For troubleshooting, you can add debug output to the scripts or check AWS CloudT
 
 ## License
 
-[Add your license information here]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
